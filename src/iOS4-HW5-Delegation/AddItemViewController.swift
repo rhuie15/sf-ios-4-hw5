@@ -8,8 +8,16 @@
 
 import UIKit
 
-class AddItemViewController: UIViewController {
+protocol ItemSaver {
+    func saveItem(item:String)
+}
 
+
+class AddItemViewController: UIViewController {
+    
+    var delegate:ItemSaver?
+    
+    
     @IBOutlet weak var itemTextField: UITextField!
     
     override func viewDidLoad() {
@@ -17,5 +25,10 @@ class AddItemViewController: UIViewController {
     }
 
     @IBAction func saveButtonPressed(sender: AnyObject) {
+        
+        delegate?.saveItem(itemTextField!.text!)
+        
+        navigationController?.popViewControllerAnimated(true)
+        
     }
 }
